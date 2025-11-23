@@ -3,9 +3,9 @@
 > Spec-first AI workflows for real work.
 > Deterministic tools on rails, with a thin agent layer on top.
 
-SpecWerk is an open-source, spec-first workflow engine and studio.
+SpecWerk is an open-source, spec-first workflow engine and studio. It's a job-spec OS for AI workers.
 
-You describe workflows in simple specs, run them through deterministic tools (internal or MCP), and use a small agent layer to explain and surface decisions. SpecWerk Studio shows each run step-by-step so engineers and business owners can see what actually happened.
+You describe jobs and workflows in simple specs, run them through deterministic tools (internal or MCP), and use a small agent layer to explain and surface decisions. SpecWerk Studio shows each run step-by-step so engineers and business owners can see what actually happened.
 
 ---
 
@@ -35,7 +35,18 @@ SpecWerk offers a third path:
 
 ## Core ideas
 
-### 1. Spec-first workflows
+### 1. Jobs, not just workflows
+
+SpecWerk is an OS for AI workers. You don't wire up agents; you hire jobs by writing specs.
+
+- **Job** – the promise ("Reconcile yesterday's invoices every morning at 9am and email finance a summary.")
+- **Spec** – the contract for that job (inputs, steps, tools, outputs, checks)
+- **Tools** – deterministic services (internal or MCP) the job is allowed to use
+- **Worker** – SpecWerk runtime + LLM that executes the spec and narrates what happened
+
+You hire a job, the job runs a workflow spec. One worker, no agent telephone game.
+
+### 2. Spec-first workflows
 
 The primary artifact in SpecWerk is the **workflow spec**, not a code module or UI diagram.
 
@@ -49,7 +60,7 @@ A workflow spec defines:
 
 Specs live in your repo (e.g. `specs/invoice-recon.yaml`), are reviewed in PRs, and versioned alongside code.
 
-### 2. Tool-first execution
+### 3. Tool-first execution
 
 SpecWerk assumes that tools **do the work**.
 
@@ -72,7 +83,7 @@ This makes it easier to answer:
 
 Tool Forge (planned) lets you generate and refine tools with AI help once, then own them as normal code.
 
-### 3. Agents as narrators, not coworkers
+### 4. Agents as narrators, not coworkers
 
 SpecWerk intentionally avoids "multi-agent telephone games."
 
@@ -95,7 +106,7 @@ They do **not**:
 
 That boundary is the core of SpecWerk's reliability model.
 
-### 4. Studio as a control room
+### 5. Studio as a control room
 
 SpecWerk Studio is the UI for workflows and runs.
 
@@ -108,6 +119,23 @@ For each run, Studio can show:
 A VP of Ops should be able to open one screen and answer:
 
 > "What did this workflow do today, and should I trust it?"
+
+### 6. Job Cards (optional layer)
+
+One **Job Card** = one recurring workflow + schedule + owner.
+
+The card references:
+
+- The workflow spec (e.g., `specs/invoice-recon.yaml`)
+- Run cadence (daily at 9am, weekly on Monday, etc.)
+- Notification targets (who gets the summary)
+- Owner (who is responsible for this job)
+
+Studio can then show a "job" view: how often it ran, who owns it, last failures, success rate, etc.
+
+Even if you don't implement Job Cards immediately, naming the concept helps people see *what SpecWerk is really building*: an OS for AI jobs, not a glorified demo runner.
+
+You hire a job, the job runs a workflow spec.
 
 ---
 
@@ -171,6 +199,7 @@ In Studio, you see each step, its type, and payload, plus a summary explaining:
 
 ### SpecWerk is…
 
+- A job-spec OS for AI workers.
 - A spec-first runtime and GUI for AI workflows.
 - A way to make AI-driven processes explicit and auditable.
 - A bridge between:

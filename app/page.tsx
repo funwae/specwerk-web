@@ -20,6 +20,9 @@ export default function LandingPage() {
             </div>
             <span>Spec-first AI automation runtime</span>
           </div>
+          <p className="text-xs text-black/60 max-w-xl">
+            Think of SpecWerk as an OS for AI coworkers: they read specs, call tools, and leave an audit trail.
+          </p>
           <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
             Spec-first AI workflows for real work.
           </h1>
@@ -28,6 +31,9 @@ export default function LandingPage() {
           </p>
           <p className="text-xs text-black/60 italic">
             No five-LLM trench coat. Just specs, tools, and a thin agent layer.
+          </p>
+          <p className="text-xs text-black/70 font-medium max-w-xl">
+            Built for teams who want AI employees they can <em>audit</em>, not AI &apos;agents&apos; they have to <em>believe</em>.
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
             <Link
@@ -93,6 +99,48 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* JOBS, SPECS, TOOLS, WORKER */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold">Jobs, Specs, Tools, Worker</h2>
+        <p className="text-sm text-black/80 max-w-2xl mb-4">
+          SpecWerk is an OS for AI workers. You don&apos;t wire up agents; you hire jobs by writing specs.
+        </p>
+        <div className="grid md:grid-cols-4 gap-4 text-sm">
+          <div className="bg-white border border-black/10 p-4 space-y-2">
+            <div className="text-xs font-semibold uppercase tracking-wide text-specwerkBlack">
+              Job
+            </div>
+            <p className="text-black/80">
+              The promise: &quot;Reconcile yesterday&apos;s invoices every morning at 9am and email finance a summary.&quot;
+            </p>
+          </div>
+          <div className="bg-white border border-black/10 p-4 space-y-2">
+            <div className="text-xs font-semibold uppercase tracking-wide text-specwerkBlack">
+              Spec
+            </div>
+            <p className="text-black/80">
+              The contract for that job: inputs, steps, tools, outputs, checks. A YAML file your team can read and review.
+            </p>
+          </div>
+          <div className="bg-white border border-black/10 p-4 space-y-2">
+            <div className="text-xs font-semibold uppercase tracking-wide text-specwerkBlack">
+              Tools
+            </div>
+            <p className="text-black/80">
+              Deterministic services (internal or MCP) the job is allowed to use. They do the actual work.
+            </p>
+          </div>
+          <div className="bg-white border border-black/10 p-4 space-y-2">
+            <div className="text-xs font-semibold uppercase tracking-wide text-specwerkBlack">
+              Worker
+            </div>
+            <p className="text-black/80">
+              SpecWerk runtime + LLM that executes the spec and narrates what happened. One worker, no agent telephone game.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* WHY SECTION */}
       <section className="space-y-6">
         <h2 className="text-xl font-semibold">AI agents that behave like software, not improv actors.</h2>
@@ -100,6 +148,7 @@ export default function LandingPage() {
           SpecWerk is an open-source runtime for AI workflows that behave like well-structured software, not ad-hoc chat logs.
         </p>
         <ul className="text-sm text-black/80 space-y-1 list-disc list-inside max-w-2xl">
+          <li>Hire jobs by writing specs, not wiring up agents.</li>
           <li>Describe workflows in simple, human-readable specs.</li>
           <li>Run work through deterministic tools and MCP servers.</li>
           <li>Use a small agent step only where judgment or language is needed.</li>
@@ -137,6 +186,8 @@ export default function LandingPage() {
               SpecWerk
             </div>
             <ul className="space-y-1 list-disc list-inside text-black/80">
+              <li>Job-spec OS: hire jobs by writing specs</li>
+              <li>Single worker, no agent-to-agent chat</li>
               <li>Spec-first, human-readable workflows</li>
               <li>Thin agents for judgment and language only</li>
               <li>Deterministic tools via MCP or internal code</li>
@@ -152,8 +203,8 @@ export default function LandingPage() {
         <div className="grid md:grid-cols-4 gap-4 text-sm">
           {[
             {
-              title: "1. Write a spec",
-              body: "Describe your workflow as ordered steps in a YAML file: tools, code, and agent steps your team can actually read.",
+              title: "1. Define a job",
+              body: "Hire a job by writing a spec: describe the promise, then the workflow as ordered steps in a YAML file your team can read.",
             },
             {
               title: "2. Build tools",
@@ -181,13 +232,16 @@ export default function LandingPage() {
       {/* WHO IT'S FOR */}
       <section id="who" className="space-y-4">
         <h2 className="text-xl font-semibold">Who it&apos;s for</h2>
+        <p className="text-sm text-black/70 max-w-2xl mb-4">
+          Everyone else is racing to build more agents, more canvases, more connectors. SpecWerk is for the teams who <em>already know</em> what job they want done, and just want it done the same way every day, with a clear spec and a log.
+        </p>
         <div className="grid md:grid-cols-3 gap-4 text-sm">
           <div className="bg-white border border-black/10 p-4">
             <div className="text-xs uppercase tracking-wide text-black/60 mb-1">
               Ops & Finance leaders
             </div>
             <ul className="text-sm text-black/80 space-y-1 list-disc list-inside">
-              <li>Automate reconciliation, approvals, and reporting.</li>
+              <li>Hire AI workers for recurring jobs: reconciliation, approvals, reporting.</li>
               <li>Keep a clear, auditable trail for every run.</li>
             </ul>
           </div>
@@ -196,8 +250,8 @@ export default function LandingPage() {
               Platform & infra teams
             </div>
             <ul className="text-sm text-black/80 space-y-1 list-disc list-inside">
-              <li>Offer a safe agent runtime as a platform primitive.</li>
-              <li>Standardize on specs, tools, and logs instead of ad-hoc "AI experiments."</li>
+              <li>Offer a safe job-spec OS as a platform primitive.</li>
+              <li>Standardize on specs, tools, and logs instead of ad-hoc &quot;AI experiments.&quot;</li>
             </ul>
           </div>
           <div className="bg-white border border-black/10 p-4">
@@ -205,7 +259,7 @@ export default function LandingPage() {
               Senior engineers & tooling devs
             </div>
             <ul className="text-sm text-black/80 space-y-1 list-disc list-inside">
-              <li>Upgrade scripts and bots into spec-driven automations.</li>
+              <li>Upgrade scripts and bots into job-driven automations.</li>
               <li>Version specs, tools, and run logs alongside your code.</li>
             </ul>
           </div>

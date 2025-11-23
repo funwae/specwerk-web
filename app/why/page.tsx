@@ -13,6 +13,50 @@ export default function WhySpecWerkPage() {
         </p>
       </section>
 
+      <section>
+        <Card>
+          <CardHeader
+            title="Mental model comparison"
+            subtitle="How SpecWerk thinks differently about AI work."
+          />
+          <CardBody>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-black/10">
+                    <th className="py-2 pr-4 font-semibold text-black/80"></th>
+                    <th className="py-2 px-4 font-semibold text-black/80">Most Agent Frameworks</th>
+                    <th className="py-2 pl-4 font-semibold text-specwerkBlack">SpecWerk</th>
+                  </tr>
+                </thead>
+                <tbody className="text-black/80">
+                  <tr className="border-b border-black/5">
+                    <td className="py-3 pr-4 font-medium">Primary artifact</td>
+                    <td className="py-3 px-4">Code & prompts</td>
+                    <td className="py-3 pl-4 font-medium">Job & workflow specs</td>
+                  </tr>
+                  <tr className="border-b border-black/5">
+                    <td className="py-3 pr-4 font-medium">Agent behavior</td>
+                    <td className="py-3 px-4">Multi-agent conversations</td>
+                    <td className="py-3 pl-4 font-medium">Single worker, no agent-to-agent chat</td>
+                  </tr>
+                  <tr className="border-b border-black/5">
+                    <td className="py-3 pr-4 font-medium">Side effects</td>
+                    <td className="py-3 px-4">Agents often call tools directly</td>
+                    <td className="py-3 pl-4 font-medium">Only deterministic tools do side effects</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 pr-4 font-medium">Story for execs</td>
+                    <td className="py-3 px-4">&quot;Trust us, the agents talked it out&quot;</td>
+                    <td className="py-3 pl-4 font-medium">&quot;Here&apos;s the spec, here&apos;s the log.&quot;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </CardBody>
+        </Card>
+      </section>
+
       <section className="grid md:grid-cols-3 gap-4">
         <Card className="md:col-span-2">
           <CardHeader
@@ -96,6 +140,32 @@ export default function WhySpecWerkPage() {
                 agent summary in one place.
               </li>
             </ul>
+          </CardBody>
+        </Card>
+      </section>
+
+      <section>
+        <Card>
+          <CardHeader
+            title="Where MCP fits"
+            subtitle="MCP as plumbing, not ideology."
+          />
+          <CardBody className="space-y-3 text-sm text-black/80">
+            <p>
+              MCP is <strong>plumbing</strong>: a clean way to expose databases, ERPs, CRMs, etc. as tools.
+            </p>
+            <p>
+              SpecWerk is <strong>above</strong> that: jobs & workflows that <em>happen</em> to call MCP tools when needed.
+            </p>
+            <p>You can:</p>
+            <ul className="list-disc pl-4 space-y-1">
+              <li>Use MCP where it saves time</li>
+              <li>Use direct internal code where it&apos;s easier</li>
+              <li>Mix both in a single spec</li>
+            </ul>
+            <p className="pt-2 text-black/70 italic">
+              We don&apos;t compete with MCP. We treat it like a socket – plug in whatever you want; the job spec is the thing that matters.
+            </p>
           </CardBody>
         </Card>
       </section>
