@@ -1,0 +1,51 @@
+version: "0.1"
+name: "Invoice Reconciliation Demo"
+description: "Compare fake ERP invoices to fake bank payments and summarize mismatches."
+
+input:
+  fields:
+    - name: "date"
+      label: "Date"
+      type: "date"
+      required: true
+
+steps:
+  - id: "fetch_invoices"
+    type: "tool"
+    tool: "demo.fetch_invoices"
+    params:
+      date: "$inputs.date"
+
+  - id: "fetch_payments"
+    type: "tool"
+    tool: "demo.fetch_payments"
+    params:
+      date: "$inputs.date"
+
+  - id: "reconcile"
+    type: "tool"
+    tool: "demo.match_invoices"
+    params: {}
+
+  - id: "summarize"
+    type: "agent"
+    prompt: |
+      You are an accounting assistant.
+
+      Date: {{ inputs.date }}
+
+      Here is today's reconciliation result as JSON:
+
+      {{ steps.reconcile }}
+
+      Write a clear, concise summary for the finance team:
+      - Number of invoices and payments
+      - How many matched
+      - Which invoices are unmatched
+      - Which payments are unmatched
+
+      Keep the summary under 150 words.
+
+output:
+  step: "summarize"
+
