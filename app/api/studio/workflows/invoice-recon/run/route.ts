@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { demoFetchInvoices, demoFetchPayments, matchInvoices } from "@/lib/demoWorkflow";
-import { summarizeReconciliation } from "@/lib/deepseek";
+import {
+  demoFetchInvoices,
+  demoFetchPayments,
+  matchInvoices,
+  buildTasksFromRecon,
+} from "@/lib/demoWorkflow";
+import {
+  analyzeUnmatchedWithDeepseek,
+  summarizeRunForFinance,
+} from "@/lib/deepseek";
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,8 +27,14 @@ export async function POST(req: NextRequest) {
     // Step 3: reconcile
     const recon = matchInvoices(invoices, payments);
 
-    // Step 4: summarize via DeepSeek
-    const summary = await summarizeReconciliation(recon);
+    // Step 4: analyze unmatched (agent)
+    const analysis_text = await analyzeUnmatchedWithDeepseek(recon, date);
+
+    // Step 5: build tasks (tool)
+    const tasks = buildTasksFromRecon(recon);
+
+    // Step 6: summarize for finance (agent)
+    const summary = await summarizeRunForFinance(recon, tasks, date);
 
     return NextResponse.json({
       ok: true,
@@ -29,7 +43,9 @@ export async function POST(req: NextRequest) {
         fetch_invoices: { invoices },
         fetch_payments: { payments },
         reconcile: recon,
-        summarize: { summary },
+        analyze_unmatched: { analysis_text },
+        build_tasks: { tasks },
+        summarize_for_finance: { summary },
       },
     });
   } catch (err: any) {

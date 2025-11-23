@@ -25,6 +25,15 @@ export type ReconciliationResult = {
   };
 };
 
+export type Task = {
+  id: string;
+  kind: "invoice" | "payment";
+  ref_id: string;
+  description: string;
+  suggested_owner: "finance" | "ops" | "support";
+  priority: "low" | "medium" | "high";
+};
+
 export async function demoFetchInvoices(date: string): Promise<Invoice[]> {
   // Fake data for the demo
   return [
@@ -79,5 +88,38 @@ export function matchInvoices(invoices: Invoice[], payments: Payment[]): Reconci
       num_unmatched_payments: unmatched_payments.length,
     },
   };
+}
+
+export function buildTasksFromRecon(recon: ReconciliationResult): Task[] {
+  const tasks: Task[] = [];
+  let idx = 1;
+
+  for (const inv of recon.unmatched_invoices) {
+    tasks.push({
+      id: `T_INV_${idx++}`,
+      kind: "invoice",
+      ref_id: inv.id,
+      description: `Investigate unmatched invoice ${inv.id} for ${inv.customer} (${inv.amount.toFixed(
+        2
+      )}).`,
+      suggested_owner: "finance",
+      priority: "medium",
+    });
+  }
+
+  for (const pay of recon.unmatched_payments) {
+    tasks.push({
+      id: `T_PAY_${idx++}`,
+      kind: "payment",
+      ref_id: pay.id,
+      description: `Investigate unmatched payment ${pay.id} for invoice ${pay.invoice_id} (${pay.amount.toFixed(
+        2
+      )}).`,
+      suggested_owner: "ops",
+      priority: "high",
+    });
+  }
+
+  return tasks;
 }
 

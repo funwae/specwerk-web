@@ -51,3 +51,57 @@ export async function summarizeReconciliation(result: any): Promise<string> {
 
   return completion.choices[0].message.content ?? "";
 }
+
+export async function analyzeUnmatchedWithDeepseek(recon: any, date: string): Promise<string> {
+  const completion = await deepseek.chat.completions.create({
+    model: "deepseek-chat",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a finance operations analyst. Explain reconciliation issues clearly and briefly.",
+      },
+      {
+        role: "user",
+        content:
+          `Date: ${date}\n\n` +
+          `Here is the reconciliation result JSON:\n\n` +
+          JSON.stringify(recon, null, 2) +
+          `\n\nDescribe the key issues:\n- What kinds of mismatches exist?\n- What should the team pay attention to?\nKeep it under 160 words.`,
+      },
+    ],
+    stream: false,
+  }) as any;
+
+  return completion.choices[0].message.content ?? "";
+}
+
+export async function summarizeRunForFinance(
+  recon: any,
+  tasks: any[],
+  date: string
+): Promise<string> {
+  const completion = await deepseek.chat.completions.create({
+    model: "deepseek-chat",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a concise finance lead. Summarize the daily AR run for other executives.",
+      },
+      {
+        role: "user",
+        content:
+          `Date: ${date}\n\n` +
+          `Reconciliation result:\n` +
+          JSON.stringify(recon, null, 2) +
+          `\n\nTask list:\n` +
+          JSON.stringify(tasks, null, 2) +
+          `\n\nWrite a short summary for finance and ops:\n- Overall status\n- Key issues\n- Next actions\nKeep it under 180 words.`,
+      },
+    ],
+    stream: false,
+  }) as any;
+
+  return completion.choices[0].message.content ?? "";
+}
